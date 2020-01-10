@@ -32,7 +32,7 @@ def reverse_complement(seq):
 
 def get_sequence(chrom,pos):
 
-	f1 = pysam.FastaFile('Homo_sapiens_assembly19.fasta')
+	f1 = pysam.FastaFile('/home/ml2529/Prime_Editing/Homo_sapiens_assembly19.fasta')
 
 	variant_region = '%s:%d-%d' % (chrom,pos-padding, pos+padding)
 
@@ -82,8 +82,6 @@ def nearest_pam(seq, pos, edit):
 
 
 
-
-
 	#print(rc_seq)
 	#print(mod_seq)
 
@@ -97,7 +95,6 @@ def nearest_pam(seq, pos, edit):
 			if (relative_pos >= -4 and relative_pos < neg_min_pos):
 				neg_min_pos = relative_pos
 
-			
 			'''
 			relative_pos = i-1-padding
 			nick_pos = relative_pos - 4
@@ -119,7 +116,7 @@ def nearest_pam(seq, pos, edit):
 	if(pos_min_pos < neg_min_pos):
 		print_oligos(mod_seq,pos_min_pos,edit)
 	elif(neg_min_pos < padding):
-		print_oligos(rc_seq,pos_min_pos,edit)
+		print_oligos(rc_seq,neg_min_pos,edit)
 
 
 	#print_oligos(seq,neg_min_pos,edit)
@@ -170,6 +167,7 @@ if __name__ == '__main__':
 
 	parser.add_argument('--pbs_len', help='Variant Position', default=13)
 	parser.add_argument('--rtt_len', help='Variant Position', default=13)
+	parser.add_argument('--fasta', help='Variant Position', default="")
 
 
 	args = parser.parse_args()
